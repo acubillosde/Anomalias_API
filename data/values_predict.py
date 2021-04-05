@@ -3,9 +3,7 @@ import numpy as np
 
 
 data = pd.read_csv('data/timeseries_full.csv')
-#new_data
 
-#Obteniendo los valores para la predicción 
 fecha = '2011-01-01 01:00:00'
 
 indice = data[data['new_date'] == fecha].index[0]

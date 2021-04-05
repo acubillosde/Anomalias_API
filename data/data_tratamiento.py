@@ -29,11 +29,11 @@ df_1.yr = df_1['yr'].interpolate(method='linear', inplace=False)
 df_1.cnt = df_1['cnt'].interpolate(method='linear', inplace=False)
 
 date_rng = pd.date_range(start='1/1/2011', end='01/01/2013', freq='H')
-df_f = df_1.reset_index(drop=True)
+df_fechas = df_1.reset_index(drop=True)
 fechas = pd.Series(date_rng, name='new_date')
-f_df = pd.concat([df_f, fechas[0:17544]], axis=1)
+fechas_df = pd.concat([df_f, fechas[0:17544]], axis=1)
    
-f_df['new_date'] = f_df['new_date'].astype(str)
+fechas_df['new_date'] = fechas_df['new_date'].astype(str)
 
 
-f_df.to_csv('data/timeseries_full.csv')
+fechas_df.to_csv('data/timeseries_full.csv')
