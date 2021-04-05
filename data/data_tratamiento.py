@@ -3,7 +3,6 @@ import os
 import numpy as np
 import pandas as pd
 
-#Interpolación para los datos de fechas faltantes
 df = pd.read_csv("data/timeseries.csv", parse_dates=[['dteday', 'hr']]) 
 
 df['dteday_hr'] = df['dteday_hr'].astype(str)
@@ -28,14 +27,13 @@ df_4.hum = df_4['hum'].interpolate(method='linear', inplace=False)
 df_4.windspeed = df_4['windspeed'].interpolate(method='linear', inplace=False)
 df_4.yr = df_4['yr'].interpolate(method='linear', inplace=False)
 df_4.cnt = df_4['cnt'].interpolate(method='linear', inplace=False)
-# df_4.dteday_hr = df_4['dteday_hr'].interpolate(method='linear', inplace=False)
 
 date_rng = pd.date_range(start='1/1/2011', end='01/01/2013', freq='H')
 df_f = df_4.reset_index(drop=True)
 fechas = pd.Series(date_rng, name='new_date')
 f_df = pd.concat([df_f, fechas[0:17544]], axis=1)
-    # #Convertir en string para regresar el índice
+   
 f_df['new_date'] = f_df['new_date'].astype(str)
 
-#Guardando el archivo 
+
 f_df.to_csv('data/timeseries_full.csv')

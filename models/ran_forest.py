@@ -22,12 +22,10 @@ col = ['season','new_time','workingday',"weathersit", 'temp','atemp','hum']
 x_trainf = X_train_n[col]
 x_testf = X_test_n[col]
 
-#model trianing 
 pipe_rf = Pipeline(steps=[("scaler", MinMaxScaler()),
     ("rfmodel", RandomForestRegressor(n_estimators=4, max_depth=10))
 ])
 
 pipe_rf.fit(x_trainf, y_train_n)
 
-##Save the model
 pickle.dump(pipe_rf, open('models/RFregression.pkl', 'wb'))
