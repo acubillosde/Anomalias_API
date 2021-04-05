@@ -8,12 +8,12 @@ data = pd.read_csv('data/timeseries_full.csv')
 #Obteniendo los valores para la predicción 
 fecha = '2011-01-01 01:00:00'
 
-idx = data[data['new_date'] == fecha].index[0]
+indice = data[data['new_date'] == fecha].index[0]
 
-season = data.iloc[idx]['season']
-time =  data.iloc[idx]['new_time']
-workingday = data.iloc[idx]['workingday'] 
-wheather = data.iloc[idx]['weathersit']
-temp =  data.iloc[idx]['temp']
-atemp = data.iloc[idx]['atemp']
-hum = data.iloc[idx]['hum']
+season = data.iloc[indice]['season']
+time =  data.iloc[indice]['new_time']
+workingday = data.iloc[indice]['workingday'] 
+wheather = data.iloc[indice]['weathersit']
+temp =  data.iloc[indice]['temp']
+atemp = data.iloc[indice]['atemp']
+hum = data.iloc[indice]['hum']

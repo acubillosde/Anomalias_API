@@ -6,12 +6,10 @@ from pydantic import BaseModel, BaseSettings
 from data.model_base import bicis
 from typing import List
 
-# data = pd.read_csv('data/timeseries_full.csv')
 
 rf_pickle = open('models/RFregression.pkl', 'rb')
 rf_model = pickle.load(rf_pickle)
 
-#values
 season = 1.0
 time = 1.0
 workingday = 0.0
@@ -20,11 +18,9 @@ temp = 0.22
 atemp = 0.2727
 hum = 0.8
 
-#prediction
 prediction = rf_model.predict([[season, time, workingday, wheather, temp, atemp, hum]])
 print('The number of bikes is:', prediction)
 
-#Convert the dict to an array
 origin = {
   "season": 1,
   "hour": 6,
@@ -37,7 +33,6 @@ origin = {
 
 tran_ = list(origin.values())
 data_in = np.array(tran_).reshape(1,7)
-# data_in = np.array(tran).reshape(1,-1)
 rf_model.predict(data_in)
 
 def predict_demand(bikes:bicis):
@@ -50,7 +45,6 @@ def predict_demand(bikes:bicis):
     atemp = df['atemp']
     hum = df['hum']
 
-    # data = [season, hour, workingday, wheather, temp, atemp, hum]
 
     return df
 
@@ -69,8 +63,6 @@ class bicis(BaseSettings):
 def predict_val(valores:list):
     rf_pickle = open('models/RFregression.pkl', 'rb')
     rf_model = pickle.load(rf_pickle)
-    # # datos = [data.data_model]
-    # return np.array(data.data_model)
     prediction = rf_model.predict(valores)
     return prediction
 
