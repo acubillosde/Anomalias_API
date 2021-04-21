@@ -38,7 +38,7 @@ async def get_date(date_time: str):
 async def predict_demand(bikes:bank):
     rf_pickle = open('models/RFregression.pkl', 'rb')
     rf_model = pickle.load(rf_pickle)
-    df = bikes.dict()
+    data = bikes.dict()
     age = data['age']
     amount =  data['amount']
     #season = df['season']
