@@ -43,10 +43,10 @@ def recall_w_precision_threshold(y, y_pred, prec_threshold = 0.3, outlier_case =
 my_scorer = make_scorer(recall_w_precision_threshold, prec_threshold = 0.2, outlier_case = True)
 parameters = {'iforest__n_estimators':[10,20,50,100],
                 'iforest__contamination':[0.02, 0.05, 0.1]}
-pipe = Pipeline(steps = [
+pipe_rf = Pipeline(steps = [
     ("iforest",IsolationForest())
     ])
-gs = GridSearchCV(estimator = pipe, n_jobs = 2, 
+gs = GridSearchCV(estimator = pipe_rf, n_jobs = 2, 
                     param_grid = parameters,
                     scoring = my_scorer,
                     cv = StratifiedKFold(n_splits = 6, shuffle = True, random_state = 239)
@@ -66,7 +66,7 @@ f1 = f1_score(y_test, y_test_pred)
 precisions.append(precision)
 recalls.append(recall)
 f1_scores.append(f1)
-
+pickle.dump(best_model, open('models/RFregression.pkl', 'wb'))
 
 #print("Sobre el conjunto de prueba, para el modelo Isolation Forest se obtuvieron las siguientes métricas:")
 #print("Precision: {}".format(precision))
@@ -131,10 +131,10 @@ f1_scores.append(f1)
 #x_trainf = X_train_n[col]
 #x_testf = X_test_n[col]
 
-pipe_rf = Pipeline(steps=[("scaler", MinMaxScaler()),
-    ("rfmodel", RandomForestRegressor(n_estimators=4, max_depth=10))
-])
+#pipe_rf = Pipeline(steps=[("scaler", MinMaxScaler()),
+#    ("rfmodel", RandomForestRegressor(n_estimators=4, max_depth=10))
+#])
 
-pipe_rf.fit(X_train, y_train)
+#pipe_rf.fit(X_train, y_train)
 
-pickle.dump(pipe_rf, open('models/RFregression.pkl', 'wb'))
+#pickle.dump(best_model, open('models/RFregression.pkl', 'wb'))
