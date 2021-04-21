@@ -76,38 +76,38 @@ f1_scores.append(f1)
 #print("\n Matriz de confusión:")
 #confusion_matrix(y_test, y_test_pred, labels = [0,1])
 
-my_scorer = make_scorer(recall_w_precision_threshold, prec_threshold = 0.2, outlier_case = True)
-parameters = [{
-                'svm__kernel':['rbf','sigmoid'], 
-                'svm__gamma':['scale','auto',0.1,0.5]
-                },
-                {
-                'svm__kernel':['poly'],
-                'svm__gamma':['scale','auto',0.1,0.5],
-                'svm__degree':[2,3,5]
-                }]
+#my_scorer = make_scorer(recall_w_precision_threshold, prec_threshold = 0.2, outlier_case = True)
+#parameters = [{
+#                'svm__kernel':['rbf','sigmoid'], 
+#                'svm__gamma':['scale','auto',0.1,0.5]
+#                },
+#                {
+#                'svm__kernel':['poly'],
+#                'svm__gamma':['scale','auto',0.1,0.5],
+#                'svm__degree':[2,3,5]
+#                }]
 
-pipe = Pipeline(steps = [("scaler",MinMaxScaler()), ("svm",OneClassSVM())
-    ])
-gs = GridSearchCV(estimator = pipe, n_jobs = 2, 
-                    param_grid = parameters,
-                    scoring = my_scorer,
-                    cv = StratifiedKFold(n_splits = 6, shuffle = True, random_state = 239)
-                )
+#pipe = Pipeline(steps = [("scaler",MinMaxScaler()), ("svm",OneClassSVM())
+#    ])
+#gs = GridSearchCV(estimator = pipe, n_jobs = 2, 
+#                    param_grid = parameters,
+#                    scoring = my_scorer,
+#                    cv = StratifiedKFold(n_splits = 6, shuffle = True, random_state = 239)
+#               )
 
-gs.fit(X_train, y_train)
-best_model: OneClassSVM = gs.best_estimator_
+#gs.fit(X_train, y_train)
+#best_model: OneClassSVM = gs.best_estimator_
 #print("El mejor score fue {} y se obtuvo con los siguientes parámetros:\n {}".format(gs.best_score_, gs.best_params_))
-best_model.fit(X_train)
-y_test_pred = outlier_coding_to_labels(best_model.predict(X_test))
+#best_model.fit(X_train)
+#y_test_pred = outlier_coding_to_labels(best_model.predict(X_test))
 
 
-precision = precision_score(y_test, y_test_pred)
-recall = recall_score(y_test, y_test_pred)
-f1 = f1_score(y_test, y_test_pred)
-precisions.append(precision)
-recalls.append(recall)
-f1_scores.append(f1)
+#precision = precision_score(y_test, y_test_pred)
+#recall = recall_score(y_test, y_test_pred)
+#f1 = f1_score(y_test, y_test_pred)
+#precisions.append(precision)
+#recalls.append(recall)
+#f1_scores.append(f1)
 
 #print("Sobre el conjunto de prueba, para el modelo One Class SVM se obtuvieron las siguientes métricas:")
 #print("Precision: {}".format(precision))
