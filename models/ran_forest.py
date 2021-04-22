@@ -13,7 +13,10 @@ from sklearn.svm import OneClassSVM
 
 datos = pd.read_csv('data/banksim_adj.csv')
 
-feature_columns = ['age', 'amount']
+feature_columns = ['age', 'amount', 'M', 'es_barsandrestaurants', 'es_contents', 'es_fashion',
+                    'es_food', 'es_health', 'es_home', 'es_hotelservices', 'es_hyper',
+                    'es_leisure', 'es_otherservices', 'es_sportsandtoys', 'es_tech',
+                    'es_transportation', 'es_travel']
 target_column = ['fraud']
 X = datos.drop("fraud", inplace = False, axis = 1).values
 y = datos[["fraud"]].values
@@ -54,7 +57,6 @@ gs = GridSearchCV(estimator = pipe_rf, n_jobs = 2,
 
 gs.fit(X_train, y_train)
 best_model: IsolationForest = gs.best_estimator_
-#print("El mejor score fue {} y se obtuvo con los siguientes parámetros:\n {}".format(gs.best_score_, gs.best_params_))
 
 best_model.fit(X_train)
 y_test_pred = outlier_coding_to_labels(best_model.predict(X_test))
@@ -68,13 +70,8 @@ recalls.append(recall)
 f1_scores.append(f1)
 pickle.dump(best_model, open('models/RFregression.pkl', 'wb'))
 
-#print("Sobre el conjunto de prueba, para el modelo Isolation Forest se obtuvieron las siguientes métricas:")
-#print("Precision: {}".format(precision))
-#print("Recall: {}".format(recall))
-#print("F1: {}".format(f1))
 
-#print("\n Matriz de confusión:")
-#confusion_matrix(y_test, y_test_pred, labels = [0,1])
+
 
 #my_scorer = make_scorer(recall_w_precision_threshold, prec_threshold = 0.2, outlier_case = True)
 #parameters = [{
